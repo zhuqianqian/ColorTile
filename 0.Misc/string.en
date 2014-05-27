@@ -1,0 +1,32 @@
+<item id="new_game">Classic Game</item>
+<item id="resume_game">Resume Game</item>
+<item id="score">Score</item>
+<item id="swipes">Swipes</item>
+<item id="best">Best</item>
+<item id="next_prev">Up Coming</item>
+<item id="game_over">Game Over</item>
+<item id="new_best">New Best</item>
+<item id="back">Back</item>
+<item id="retry">Retry</item>
+<item id="share">Share</item>
+<item id="leaderboard">High Scores</item>
+<item id="monocolor">Mono Color</item>
+<item id="tutorial0">Swipe over tiles
+of the same color
+to get Score.</item>
+<item id="tuturial1">Try it yourself now</item>
+<item id="tuturial2">Swipe over tiles
+of the same color
+to replace them until
+ONE COLOR is left</item>
+<item id="overwrite_game">Saved game will be erased.
+Start new game?</item>
+<item id="yes">Yes</item>
+<item id="no">No</item>
+<item id="giveup_ask">Are you sure to give up?</item>
+<item id="giveup_yes">Give Up</item>
+<item id="giveup_no">Continue</item>
+<item id="use_google_ask">Do you want to Signin?
+Signin Google+ to compare
+high scores with others.</item>
+<item id="signin">Signin</item>

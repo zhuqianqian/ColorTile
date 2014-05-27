@@ -1,0 +1,16 @@
+bin/*
+cocos2d/*
+proj.android/.settings
+proj.android/assets*
+proj.android/bin*
+proj.android/gen*
+proj.android/obj*
+proj.android/res/values/ids.xml
+proj.win32/Debug.win32*
+proj.win32/Release.win32*
+proj.win32/*.sdf
+proj.win32/*.opensdf
+proj.win32/*.suo
+proj.win32/*.vcxproj.user
+proj.win32/*.vcxproj.filters
+Resources/sound/*

@@ -1,0 +1,30 @@
+﻿<item id="new_game">经典模式</item>
+<item id="resume_game">继续游戏</item>
+<item id="score">分数</item>
+<item id="swipes">划动</item>
+<item id="best">高分</item>
+<item id="next_prev">接下来</item>
+<item id="game_over">游戏结束</item>
+<item id="new_best">新记录</item>
+<item id="back">返回</item>
+<item id="retry">重试</item>
+<item id="share">分享</item>
+<item id="leaderboard">高分排名</item>
+<item id="monocolor">单色模式</item>
+<item id="tutorial0">划过颜色相同的方块
+使它们更换颜色直到
+没有相邻且同色的方块</item>
+<item id="tuturial1">现在开始玩吧~</item>
+<item id="tuturial2">划过颜色相同的方块
+使它们更换颜色直到
+只有一种颜色的方块。</item>
+<item id="overwrite_game">保存的游戏将被覆盖。
+确定开始新游戏？</item>
+<item id="yes">确定</item>
+<item id="no">算了</item>
+<item id="giveup_ask">确定就这样结束吗？</item>
+<item id="giveup_yes">结束吧</item>
+<item id="giveup_no">再试试</item>
+<item id="use_google_ask">想和朋友一争高下吗?
+登陆Google+比比吧!</item>
+<item id="signin">登陆</item>

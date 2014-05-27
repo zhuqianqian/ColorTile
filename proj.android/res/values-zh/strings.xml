@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">消除彩块</string>
+    <string name="gamehelper_sign_in_failed">登陆失败，请检查你的网络设置以确定能连接到谷歌服务。</string>
+    <string name="gamehelper_app_misconfigured">The application is incorrectly configured. Check that the package name and signing certificate match the client ID created in Developer Console. Also, if the application is not yet published, check that the account you are trying to sign in with is listed as a tester account. See logs for more information.</string>
+    <string name="gamehelper_license_failed">许可证书检查失败。</string>
+    <string name="gamehelper_unknown_error">未知错误。</string>
+    <string name="send_to">Choose an app to share:</string>
+    <string name="share_content">我在玩消除彩块得了%1$d分, 想挑战一下吗? 试试这个好玩的游戏吧： https://play.google.com/store/apps/details?id=com.z299studio.colortile</string>
+
+    <string name="share_content1">我在玩消除采块，只用了%1$d次划动就只留下一种颜色。大家也来试试吧：https://play.google.com/store/apps/details?id=com.z299studio.colortile</string>
+</resources>

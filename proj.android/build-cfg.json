@@ -1,0 +1,17 @@
+{
+    "alias": "zhuqkey", 
+    "alias_pass": "82C01y29H", 
+    "copy_resources": [
+        {
+            "from": "../Resources", 
+            "to": ""
+        }
+    ], 
+    "key_store": "C:\\Users\\i064076\\OneDrive\\Private\\299Studio.sa.keystore", 
+    "key_store_pass": "82C01y29H", 
+    "ndk_module_path": [
+        "../cocos2d", 
+        "../cocos2d/cocos", 
+        "../cocos2d/external"
+    ]
+}
