@@ -1,6 +1,8 @@
 #ifndef _COLORTILE_H_
 #define _COLORTILE_H_
 
+#include "cocos2d.h"
+
 #define COLOR_0	(Color3B(21, 106, 235))
 #define COLOR_1 (Color3B(106, 235, 21))
 #define COLOR_2 (Color3B(255, 40, 40))

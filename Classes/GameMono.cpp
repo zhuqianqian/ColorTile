@@ -1,7 +1,5 @@
-#include "colortile.h"
 #include "GameMono.h"
 #include "GameHome.h"
-#include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "strres.h"
 

@@ -1,7 +1,6 @@
 #ifndef _GAMEBASE_H_
 #define _GAMEBASE_H_
 
-#include "cocos2d.h"
 #include "colortile.h"
 
 //typedef std::function<void()> callback;
