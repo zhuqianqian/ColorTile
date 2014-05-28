@@ -38,7 +38,7 @@ bool GameBase::init() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	this->setKeypadEnabled(true);
 #endif
-	return LayerColor::initWithColor(Color4B(0xff, 0xff, 0xff, 0xff));
+	return LayerColor::initWithColor(Color4B(238, 224, 200, 0xff));
 }
 
 bool GameBase::initGame() {

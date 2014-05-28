@@ -4,8 +4,8 @@
 #include "cocos2d.h"
 
 #define COLOR_0	(Color3B(21, 106, 235))
-#define COLOR_1 (Color3B(106, 235, 21))
-#define COLOR_2 (Color3B(255, 40, 40))
+#define COLOR_1 (Color3B(116, 227, 70))
+#define COLOR_2 (Color3B(246, 94, 59))
 #define COLOR_3 (Color3B(255, 187, 32))
 #define COLOR_4 (Color3B(64, 0, 64))
 #define COLOR_5 (Color3B(0, 255, 255))

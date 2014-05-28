@@ -34,13 +34,13 @@ Scene* GameHome::createScene()
 // on "init" you need to initialize your instance
 bool GameHome::init()
 {
-    if ( !LayerColor::initWithColor(Color4B(255, 255, 255, 255) ))
+    if ( !LayerColor::initWithColor(Color4B(238, 224, 200, 255) ))
     {
         return false;
     }
 	
 	float btnWidth, btnHeight, btnBorder, btnFont;
-	Color3B color0(128, 64, 255);
+	Color3B color0(246, 94, 59);
 	Color3B color1(255, 64, 128);
 	StrRes * sr = StrRes::getInstance();
 	srand(time(NULL));
@@ -57,12 +57,12 @@ bool GameHome::init()
 	MenuItemSprite * lbItem = NULL;
 	this->useGoogleGame = UserDefault::getInstance()->getBoolForKey(SP_ENABLE_GOOGLE, false);
 	auto newItem = createTextButton(sr->getString(RSTR::new_game), btnWidth, btnHeight, btnFont, btnBorder, 
-		color0, color1, CC_CALLBACK_1(GameHome::onNewGame, this, GAME_NORMAL));
+		Color3B(78, 205, 168), Color3B(157, 230, 208), CC_CALLBACK_1(GameHome::onNewGame, this, GAME_NORMAL));
 	auto monoItem = createTextButton(sr->getString(RSTR::monocolor), btnWidth, btnHeight, btnFont, btnBorder,
-		color0, color1, CC_CALLBACK_1(GameHome::onNewGame, this, GAME_MONOCLR));
+		Color3B(73, 217, 104), Color3B(157, 236, 175), CC_CALLBACK_1(GameHome::onNewGame, this, GAME_MONOCLR));
 #if (CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 	lbItem = createTextButton(sr->getString(RSTR::leaderboard), btnWidth, btnHeight, btnFont, btnBorder,
-		color0, color1, CC_CALLBACK_1(GameHome::onLeaderboard, this));
+		Color3B(160, 231, 71), Color3B(193, 241, 141), CC_CALLBACK_1(GameHome::onLeaderboard, this));
 	if (!this->useGoogleGame && !__asked && UserDefault::getInstance()->getIntegerForKey(SP_ASK_GOOGLE, 1)) {
 		this->schedule(schedule_selector(GameHome::askUseGooglePlay), 0.1f, 0, 0.5f);
 		__asked = 1;
@@ -70,7 +70,7 @@ bool GameHome::init()
 #endif /* CC_TARGET_PLATFORM */
 	if (GAME_OVER != UserDefault::getInstance()->getIntegerForKey(SP_GAME_STATUS, GAME_OVER)) {
 		auto resumeItem = createTextButton(sr->getString(RSTR::resume_game), btnWidth, btnHeight, btnFont, btnBorder,
-			color0, color1, CC_CALLBACK_1(GameHome::onNewGame, this, GAME_RESUME));
+			Color3B(78, 172, 197), Color3B(175, 217, 218), CC_CALLBACK_1(GameHome::onNewGame, this, GAME_RESUME));
 		menu = Menu::create(resumeItem, newItem, monoItem, lbItem, NULL);
 	}
 	else {
@@ -95,7 +95,7 @@ MenuItemSprite* GameHome::createTextButton(const char *text,
 	const cocos2d::ccMenuCallback &callback)
 {
 	Rect r1, r2; 
-	static Color3B colorWhite(255, 255, 255);	
+	static Color3B colorBorder(238, 228, 218);
 	r1.setRect(0, 0, width, height);
 	r2.setRect(border, border, width - 2 * border, height - 2 * border);
 	auto bkgNormal = Sprite::create();
@@ -103,8 +103,8 @@ MenuItemSprite* GameHome::createTextButton(const char *text,
 	auto rectNormal = Sprite::create();
 	auto rectPressed = Sprite::create();
 	auto label = LabelTTF::create(text, "Arial", fntSize);
-	bkgNormal->setColor(colorWhite);
-	bkgPressed->setColor(colorWhite);
+	bkgNormal->setColor(colorBorder);
+	bkgPressed->setColor(colorBorder);
 	bkgNormal->setTextureRect(r1);
 	bkgPressed->setTextureRect(r1);
 	rectNormal->setColor(normal);
@@ -247,6 +247,7 @@ void GameHome::confirmOverwrite(int mode) {
 	float btnHeight = 72 * this->_xScale;
 	float btnBorder = 2 * this->_xScale;
 	float fntSize = 32 * this->_xScale;
+	Color3B color0(240, 162, 96);
 	Color3B color1(255, 128, 128);
 	r.setRect(0, 0, 440.0f*this->_xScale, 200.0f*this->_xScale);
 	auto layer = Sprite::create();
@@ -255,23 +256,21 @@ void GameHome::confirmOverwrite(int mode) {
 	layer->setPosition(this->_size.width / 2, this->_size.height / 2);
 	layer->setOpacity(128);
 	this->addChild(layer, 1, 2990);
-//	bkg->setOpacity(240);
-	bkg->setColor(COLOR_2);
+	bkg->setColor(color0);
 	bkg->setTextureRect(r);
 	bkg->runAction(Sequence::create(
 		ScaleTo::create(0.00f, 0.1f), 
 		ScaleTo::create(0.2f, 1.1f),
 		ScaleTo::create(0.1f, 1.0f), NULL));
 	bkg->setPosition(this->_size.width / 2, this->_size.height / 2);
-	//this->addChild(bkg, 1, 2990);
 	layer->addChild(bkg);
 	auto text = LabelTTF::create(sr->getString(RSTR::overwrite_game), "Arial", 32*this->_xScale);
 	text->setPosition(220.0f*this->_xScale, 140 * this->_xScale);
 	bkg->addChild(text);
 	auto yes = createDialogButton(sr->getString(RSTR::yes), btnWidth, btnHeight, fntSize, btnBorder,
-		COLOR_2, color1, 1, CC_CALLBACK_1(GameHome::confirmCallback, this, 1, mode));
+		color0, color1, 1, CC_CALLBACK_1(GameHome::confirmCallback, this, 1, mode));
 	auto no = createDialogButton(sr->getString(RSTR::no), btnWidth, btnHeight, fntSize, btnBorder,
-		COLOR_2, color1, 0, CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode));
+		color0, color1, 0, CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode));
 	yes->setAnchorPoint({ 0, 0 });
 	no->setAnchorPoint({ 0, 0 });
 	yes->setPosition(220 * this->_xScale, 0);

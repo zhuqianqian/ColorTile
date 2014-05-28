@@ -5,6 +5,8 @@ proj.android/assets*
 proj.android/bin*
 proj.android/gen*
 proj.android/obj*
+proj.android/*.so
+proj.android/libs/*gdb*
 proj.android/res/values/ids.xml
 proj.win32/Debug.win32*
 proj.win32/Release.win32*
