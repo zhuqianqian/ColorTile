@@ -247,8 +247,8 @@ void GameHome::confirmOverwrite(int mode) {
 	float btnHeight = 72 * this->_xScale;
 	float btnBorder = 2 * this->_xScale;
 	float fntSize = 32 * this->_xScale;
-	Color3B color0(240, 162, 96);
-	Color3B color1(255, 128, 128);
+	Color3B color0(145, 151, 163);
+	Color3B color1(83, 88, 100);
 	r.setRect(0, 0, 440.0f*this->_xScale, 200.0f*this->_xScale);
 	auto layer = Sprite::create();
 	layer->setColor(Color3B(0, 0, 0));
