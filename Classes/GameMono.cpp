@@ -106,7 +106,8 @@ void GameMono::onGiveUp(Ref * pSender) {
 	float btnHeight = 72 * this->_xScale;
 	float btnBorder = 2 * this->_xScale;
 	float fntSize = 32 * this->_xScale;
-	Color3B color1(255, 128, 128);
+	Color3B color0(145, 151, 163);
+	Color3B color1(83, 88, 100);
 	this->_funcbar->setEnabled(false);
 	this->_status = GAME_PAUSED;
 	auto sr = StrRes::getInstance();
@@ -121,7 +122,7 @@ void GameMono::onGiveUp(Ref * pSender) {
 	layer->setPosition(size.width / 2, size.height / 2);
 	layer->setOpacity(128);
 	this->addChild(layer, 1, 2990);
-	bkg->setColor(COLOR_2);
+	bkg->setColor(color0);
 	bkg->setTextureRect(r);
 	bkg->runAction(Sequence::create(
 		ScaleTo::create(0.00f, 0.1f),
@@ -135,9 +136,9 @@ void GameMono::onGiveUp(Ref * pSender) {
 	bkg->addChild(text);
 	
 	auto yes = GameHome::createDialogButton(sr->getString(RSTR::giveup_yes), btnWidth, btnHeight, fntSize, btnBorder,
-		COLOR_2, color1, 1, CC_CALLBACK_1(GameMono::dialogCallback, this, 1));
+		color0, color1, 1, CC_CALLBACK_1(GameMono::dialogCallback, this, 1));
 	auto no = GameHome::createDialogButton(sr->getString(RSTR::giveup_no), btnWidth, btnHeight, fntSize, btnBorder,
-		COLOR_2, color1, 0, CC_CALLBACK_1(GameMono::dialogCallback, this, 0));
+		color0, color1, 0, CC_CALLBACK_1(GameMono::dialogCallback, this, 0));
 	yes->setAnchorPoint({ 0, 0 });
 	no->setAnchorPoint({ 0, 0 });
 	yes->setPosition(220 * this->_xScale, 0);

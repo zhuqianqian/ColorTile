@@ -319,7 +319,8 @@ void GameHome::askUseGooglePlay(float dt) {
 	float btnHeight = 72 * this->_xScale;
 	float btnBorder = 2 * this->_xScale;
 	float fntSize = 32 * this->_xScale;
-	Color3B color1(255, 128, 128);
+	Color3B color0(145, 151, 163);
+	Color3B color1(83, 88, 100);
 	r.setRect(0, 0, 440.0f*this->_xScale, 240.0f*this->_xScale);
 	auto layer = Sprite::create();
 	layer->setColor(Color3B(0, 0, 0));
@@ -327,7 +328,7 @@ void GameHome::askUseGooglePlay(float dt) {
 	layer->setPosition(this->_size.width / 2, this->_size.height / 2);
 	layer->setOpacity(128);
 	this->addChild(layer, 1, 2990);
-	bkg->setColor(COLOR_2);
+	bkg->setColor(color0);
 	bkg->setTextureRect(r);
 	bkg->runAction(Sequence::create(
 		ScaleTo::create(0.00f, 0.1f),
@@ -339,9 +340,9 @@ void GameHome::askUseGooglePlay(float dt) {
 	text->setPosition(220.0f*this->_xScale, 160 * this->_xScale);
 	bkg->addChild(text);
 	auto yes = createDialogButton(sr->getString(RSTR::signin), btnWidth, btnHeight, fntSize, btnBorder,
-		COLOR_2, color1, 1, CC_CALLBACK_1(GameHome::respondGooglePlay, this, 1));
+		color0, color1, 1, CC_CALLBACK_1(GameHome::respondGooglePlay, this, 1));
 	auto no = createDialogButton(sr->getString(RSTR::no), btnWidth, btnHeight, fntSize, btnBorder,
-		COLOR_2, color1, 0, CC_CALLBACK_1(GameHome::respondGooglePlay, this, 0));
+		color0, color1, 0, CC_CALLBACK_1(GameHome::respondGooglePlay, this, 0));
 	yes->setAnchorPoint({ 0, 0 });
 	no->setAnchorPoint({ 0, 0 });
 	yes->setPosition(220 * this->_xScale, 0);
