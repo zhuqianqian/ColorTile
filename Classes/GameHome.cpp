@@ -358,7 +358,7 @@ void GameHome::respondGooglePlay(cocos2d::Ref* pSender, int answer) {
 	this->_menu->setEnabled(true);
 	if (answer) {
 		::beginUserInitiatedSigned();
-		UserDefault::getInstance()->setBoolForKey(SP_ENABLE_GOOGLE, true);
+		//UserDefault::getInstance()->setBoolForKey(SP_ENABLE_GOOGLE, true);
 	}
 	else {
 		UserDefault::getInstance()->setIntegerForKey(SP_ASK_GOOGLE, 0);
