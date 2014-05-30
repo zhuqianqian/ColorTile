@@ -378,11 +378,12 @@ void GameBase::onTileUpdate() {
 	Sprite *s = NULL;
 	n = this->_recIndex;
 	if (n > 16 && this->_maxStackCap < 9) {
-		sprintf(str, "%d", ++this->_maxStackCap);
+		adjustStack();
+		sprintf(str, "%d", this->_maxStackCap);
 		this->_maxStackLabel->setString(str);
 		if (this->_maxStackCap) {
 			this->_maxStackLabel->setVisible(true);
-		}
+		}		
 	}
 	pushStack(updateScore(n));
 	if (this->_regFlag) {
@@ -733,6 +734,25 @@ void GameBase::popStack() {
 	else {
 		this->_maxStackLabel->setVisible(false);
 	}
+}
+
+void GameBase::adjustStack() {
+	int i, j;
+	char * temp[8];
+	if (this->_maxStackCap == this->_stackCap) {
+		for (i = 0; i < this->_maxStackCap; ++i) {
+			temp[i] = this->_stackPtrs[i];
+		}
+		j = 0;
+		for (i = this->_stackPointer; i < this->_maxStackCap; ++i) {
+			this->_stackPtrs[j++] = temp[i];
+		}
+		for (i = 0; i < this->_stackPointer; ++i) {
+			this->_stackPtrs[j++] = temp[i];
+		}
+		this->_stackPointer = this->_maxStackCap;
+	}
+	this->_maxStackCap++;
 }
 
 void GameBase::onUndo(Ref *pSender) {

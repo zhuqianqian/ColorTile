@@ -59,7 +59,7 @@ protected:
 
 	virtual void pushStack(int n);
 	virtual void popStack();
-
+	virtual void adjustStack();
 
 	int _xCount, _yCount, _nColors;
 	int _status;
