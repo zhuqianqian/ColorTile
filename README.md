@@ -1,7 +1,11 @@
-ColorTile
+Color Tile
 =========
-
 a simple game that swipe over matched color tiles
+
+
+License
+=========
+Color Tile Use [GPL v3 License](http://opensource.org/licenses/GPL-3.0)
 
 Download
 =========
