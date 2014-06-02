@@ -4,6 +4,7 @@
 #include "GameHome.h"
 #include "GameNormal.h"
 #include "GameMono.h"
+#include "Dialog.h"
 #include "strres.h"
 
 #if (CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
@@ -13,6 +14,7 @@ static int __asked = 0;
 #endif /* CC_TARGET_PLATFORM */
 
 USING_NS_CC;
+using namespace z299studio;
 
 #define CT_CREATE_TILE(var, i, r, c)  \
 	(var) = Sprite::create(); \
@@ -222,6 +224,7 @@ void GameHome::onNewGame(Ref* pSender, int mode)
 	else {
 		if (GAME_OVER != UserDefault::getInstance()->getIntegerForKey(SP_GAME_STATUS, GAME_OVER)) {
 			confirmOverwrite(mode);
+            //Dialog::build()->show()
 			return;
 		}
 		GameBase::gameStartNew = 1;
@@ -239,45 +242,49 @@ void GameHome::onNewGame(Ref* pSender, int mode)
 }
 
 void GameHome::confirmOverwrite(int mode) {
-	this->_menu->setEnabled(false);
-	auto bkg = Sprite::create();
+	//this->_menu->setEnabled(false);
+	//auto bkg = Sprite::create();
 	auto sr = StrRes::getInstance();
-	Rect r;
-	float btnWidth = 220 * this->_xScale;
-	float btnHeight = 72 * this->_xScale;
-	float btnBorder = 2 * this->_xScale;
-	float fntSize = 32 * this->_xScale;
-	Color3B color0(145, 151, 163);
-	Color3B color1(83, 88, 100);
-	r.setRect(0, 0, 440.0f*this->_xScale, 200.0f*this->_xScale);
-	auto layer = Sprite::create();
-	layer->setColor(Color3B(0, 0, 0));
-	layer->setTextureRect({ 0, 0, this->_size.width, this->_size.height });
-	layer->setPosition(this->_size.width / 2, this->_size.height / 2);
-	layer->setOpacity(128);
-	this->addChild(layer, 1, 2990);
-	bkg->setColor(color0);
-	bkg->setTextureRect(r);
-	bkg->runAction(Sequence::create(
-		ScaleTo::create(0.00f, 0.1f), 
-		ScaleTo::create(0.2f, 1.1f),
-		ScaleTo::create(0.1f, 1.0f), NULL));
-	bkg->setPosition(this->_size.width / 2, this->_size.height / 2);
-	layer->addChild(bkg);
-	auto text = LabelTTF::create(sr->getString(RSTR::overwrite_game), "Arial", 32*this->_xScale);
-	text->setPosition(220.0f*this->_xScale, 140 * this->_xScale);
-	bkg->addChild(text);
-	auto yes = createDialogButton(sr->getString(RSTR::yes), btnWidth, btnHeight, fntSize, btnBorder,
-		color0, color1, 1, CC_CALLBACK_1(GameHome::confirmCallback, this, 1, mode));
-	auto no = createDialogButton(sr->getString(RSTR::no), btnWidth, btnHeight, fntSize, btnBorder,
-		color0, color1, 0, CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode));
-	yes->setAnchorPoint({ 0, 0 });
-	no->setAnchorPoint({ 0, 0 });
-	yes->setPosition(220 * this->_xScale, 0);
-	no->setPosition(0,0);
-	auto options = Menu::create(yes, no, nullptr);
-	options->setPosition(Point::ZERO);
-	bkg->addChild(options);
+	//Rect r;
+	//float btnWidth = 220 * this->_xScale;
+	//float btnHeight = 72 * this->_xScale;
+	//float btnBorder = 2 * this->_xScale;
+	//float fntSize = 32 * this->_xScale;
+	//Color3B color0(145, 151, 163);
+	//Color3B color1(83, 88, 100);
+	//r.setRect(0, 0, 440.0f*this->_xScale, 200.0f*this->_xScale);
+	//auto layer = Sprite::create();
+	//layer->setColor(Color3B(0, 0, 0));
+	//layer->setTextureRect({ 0, 0, this->_size.width, this->_size.height });
+	//layer->setPosition(this->_size.width / 2, this->_size.height / 2);
+	//layer->setOpacity(128);
+	//this->addChild(layer, 1, 2990);
+	//bkg->setColor(color0);
+	//bkg->setTextureRect(r);
+	//bkg->runAction(Sequence::create(
+	//	ScaleTo::create(0.00f, 0.1f), 
+	//	ScaleTo::create(0.2f, 1.1f),
+	//	ScaleTo::create(0.1f, 1.0f), NULL));
+	//bkg->setPosition(this->_size.width / 2, this->_size.height / 2);
+	//layer->addChild(bkg);
+	//auto text = LabelTTF::create(sr->getString(RSTR::overwrite_game), "Arial", 32*this->_xScale);
+	//text->setPosition(220.0f*this->_xScale, 140 * this->_xScale);
+	//bkg->addChild(text);
+	//auto yes = createDialogButton(sr->getString(RSTR::yes), btnWidth, btnHeight, fntSize, btnBorder,
+	//	color0, color1, 1, CC_CALLBACK_1(GameHome::confirmCallback, this, 1, mode));
+	//auto no = createDialogButton(sr->getString(RSTR::no), btnWidth, btnHeight, fntSize, btnBorder,
+	//	color0, color1, 0, CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode));
+	//yes->setAnchorPoint({ 0, 0 });
+	//no->setAnchorPoint({ 0, 0 });
+	//yes->setPosition(220 * this->_xScale, 0);
+	//no->setPosition(0,0);
+	//auto options = Menu::create(yes, no, nullptr);
+	//options->setPosition(Point::ZERO);
+	//bkg->addChild(options);
+    Dialog::build()->setContentScale(this->_xScale)
+        ->show(nullptr, sr->getString(RSTR::overwrite_game), 
+        CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode),
+        sr->getString(RSTR::yes), sr->getString(RSTR::no) );
 }
 
 void GameHome::confirmCallback(Ref * pSender, int answer, int mode) {

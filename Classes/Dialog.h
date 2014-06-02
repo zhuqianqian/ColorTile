@@ -8,28 +8,53 @@ namespace z299studio {
 
 	class Dialog : public cocos2d::LayerColor {
 	public:
-		Dialog() : _dc(nullptr){}
+
+		static cocos2d::MenuItemSprite * createDialogButton(const char *text,
+			float width, float height,
+			float fntSize, float border,
+			const cocos2d::Color3B normal,
+			const cocos2d::Color3B pressed,
+			const int style,
+			const cocos2d::ccMenuCallback &callback);
+
+		CREATE_FUNC(Dialog);
 		~Dialog(){}
 		static Dialog * build();
 		virtual bool init();
 
-		Dialog * setTitle(const char * title);
-		Dialog * setText(const char * text);
-		Dialog * setPositive(const char * yes);
-		Dialog * setNeutral(const char * neutral);
-		Dialog * setNegative(const char * no);
-		Dialog * setCallback(DialogCallback &callback);
-		Dialog * setPositive(const char * yes, cocos2d::ccMenuCallback &cb);
-		Dialog * setNeutral(const char * neutral, cocos2d::ccMenuCallback &cb);
-		Dialog * setNegative(const char * no, cocos2d::ccMenuCallback &cb);
+		//Dialog * setTitle(const char * title);
+		//Dialog * setText(const char * text);
+		//Dialog * setPositive(const char * yes);
+		//Dialog * setNeutral(const char * neutral);
+		//Dialog * setNegative(const char * no);
+		//Dialog * setCallback(DialogCallback &callback);
+		//Dialog * setOptions(const char *yes, const char *no = nullptr, const char * neutral = nullptr);
+		//Dialog * setPositive(const char * yes, cocos2d::ccMenuCallback &cb);
+		//Dialog * setNeutral(const char * neutral, cocos2d::ccMenuCallback &cb);
+		//Dialog * setNegative(const char * no, cocos2d::ccMenuCallback &cb);
+		//void show();
+		Dialog* setContentScale(float scale);
 		void dismiss();
-		void show();
-		void show(const char * text, DialogCallback & callback, const char * yes,
-			const char * no = nullptr, const char *neutral = nullptr);
+		void show(const char * title, const char * text, const cocos2d::ccMenuCallback &callback,
+			const char * yes, const char * no = nullptr, const char *neutral = nullptr);
+
+		virtual bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event);
+		virtual void onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * event);
+		virtual void onTouchEnded(cocos2d::Touch * touch, cocos2d::Event * event);
+		virtual void onTouchCancelled(cocos2d::Touch * touch, cocos2d::Event * event);
 
 	private:
-		DialogCallback _dc;
 		void dialogCallback(cocos2d::Ref * pSender, int answer);
+		
+		DialogCallback _dc;
+		/*cocos2d::LabelTTF * _title,
+			*_text,
+		    *_yes, 
+			*_neutral,
+			*_no;*/
+		float _scale;
+		cocos2d::Sprite * _dialog;
+		cocos2d::Menu * _menu;
 	};
 }
 

@@ -20,7 +20,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
         glview = GLView::create("Color Tile");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		glview->setFrameSize(320,480);
+		glview->setFrameSize(480,800);
 #endif
         director->setOpenGLView(glview);
     }
