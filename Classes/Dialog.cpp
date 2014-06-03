@@ -145,7 +145,7 @@ namespace z299studio {
         r1.setRect(0, 0, wndSize.width, height);
         this->_dialog->setTextureRect(r1);
         this->_dialog->setColor(__clrbkg);
-        this->_dialog->setPosition(wndSize.width / 2 + 16 * this->_scale, wndSize.height / 2);
+        this->_dialog->setPosition(wndSize.width / 2 + 12 * this->_scale, wndSize.height / 2);
         this->_dialog->runAction(Sequence::create(
             ScaleTo::create(0.00f, 0.1f),
             ScaleTo::create(0.2f, 1.1f),
