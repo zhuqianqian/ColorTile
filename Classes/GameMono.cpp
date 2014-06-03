@@ -166,14 +166,12 @@ bool GameMono::dialogCallback(int answer) {
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 void GameMono::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event){
-	if(keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE)  {
-		auto dialog = this->getChildByTag(2990);
-		if(dialog!=nullptr) {
-			dialogCallback(nullptr, 0);
-		}
-		else {
-			GameBase::onKeyReleased(keyCode, event);
-		}
+    if(keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE)  {
+        if(Dialog::getInstance()) {
+            Dialog::getInstance()->dismiss();
+            return;
+        }
+		GameBase::onKeyReleased(keyCode, event);
 	}
 }
 #endif

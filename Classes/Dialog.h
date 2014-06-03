@@ -20,6 +20,7 @@ namespace z299studio {
 		CREATE_FUNC(Dialog);
 		~Dialog(){}
 		static Dialog * build();
+        static Dialog * getInstance();
 		virtual bool init();
 
 		//Dialog * setTitle(const char * title);

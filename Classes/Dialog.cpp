@@ -7,84 +7,91 @@ const Color3B __clrdrk( 83,  88, 100);
 
 namespace z299studio {
 
-	MenuItemSprite* Dialog::createDialogButton(const char *text,
-		float width, float height,
-		float fntSize, float border,
-		const Color3B normal,
-		const Color3B pressed,
-		const int style,
-		const ccMenuCallback &callback)
-	{
-		Rect r1, r2;
-		r1.setRect(0, 0, width, height);
-		if (style == 1) {
-			r2.setRect(border, 0, width , height - border);
-		}
-		else if (style == 0) {
-			r2.setRect(0, 0, width-border, height - border);
-		}
+    Dialog * __instance;
 
-		auto bkgNormal = Sprite::create();
-		auto bkgPressed = Sprite::create();
-		auto rectNormal = Sprite::create();
-		auto rectPressed = Sprite::create();
-		auto label = LabelTTF::create(text, "Arial", fntSize);
-		bkgNormal->setColor(__clrtxt);
-		bkgPressed->setColor(__clrtxt);
-		bkgNormal->setTextureRect(r1);
-		bkgPressed->setTextureRect(r1);
-		rectNormal->setColor(normal);
-		rectNormal->setTextureRect(r2);
-		rectPressed->setColor(pressed);
-		rectPressed->setTextureRect(r2);
-		label->setPosition(width / 2, height / 2);
-		rectNormal->setAnchorPoint({ 0, 0 });
-		rectPressed->setAnchorPoint({ 0, 0 });
-		rectNormal->setPosition(0, 0);
-		rectPressed->setPosition(0, 0);
-		rectNormal->addChild(label);
-		rectPressed->addChild(label);
-		bkgNormal->addChild(rectNormal);
-		bkgPressed->addChild(rectPressed);
+    MenuItemSprite* Dialog::createDialogButton(const char *text,
+        float width, float height,
+        float fntSize, float border,
+        const Color3B normal,
+        const Color3B pressed,
+        const int style,
+        const ccMenuCallback &callback)
+    {
+        Rect r1, r2;
+        r1.setRect(0, 0, width, height);
+        if (style == 1) {
+            r2.setRect(border, 0, width, height - border);
+        }
+        else if (style == 0) {
+            r2.setRect(0, 0, width - border, height - border);
+        }
 
-		return MenuItemSprite::create(bkgNormal, bkgPressed, callback);
-	}
+        auto bkgNormal = Sprite::create();
+        auto bkgPressed = Sprite::create();
+        auto rectNormal = Sprite::create();
+        auto rectPressed = Sprite::create();
+        auto label = LabelTTF::create(text, "Arial", fntSize);
+        bkgNormal->setColor(__clrtxt);
+        bkgPressed->setColor(__clrtxt);
+        bkgNormal->setTextureRect(r1);
+        bkgPressed->setTextureRect(r1);
+        rectNormal->setColor(normal);
+        rectNormal->setTextureRect(r2);
+        rectPressed->setColor(pressed);
+        rectPressed->setTextureRect(r2);
+        label->setPosition(width / 2, height / 2);
+        rectNormal->setAnchorPoint({ 0, 0 });
+        rectPressed->setAnchorPoint({ 0, 0 });
+        rectNormal->setPosition(0, 0);
+        rectPressed->setPosition(0, 0);
+        rectNormal->addChild(label);
+        rectPressed->addChild(label);
+        bkgNormal->addChild(rectNormal);
+        bkgPressed->addChild(rectPressed);
 
-	Dialog* Dialog::build() {
-		auto layer = Dialog::create();
-		return dynamic_cast<Dialog *> (layer);
-	}
+        return MenuItemSprite::create(bkgNormal, bkgPressed, callback);
+    }
 
-	bool Dialog::init() {
-		if (!LayerColor::initWithColor(Color4B(0, 0, 0, 128))) {
-			return false;
-		}
-		auto listener = EventListenerTouchOneByOne::create();
-		listener->setSwallowTouches(true);
-		listener->onTouchBegan = CC_CALLBACK_2(Dialog::onTouchBegan, this);
-		listener->onTouchMoved = CC_CALLBACK_2(Dialog::onTouchMoved, this);
-		listener->onTouchEnded = CC_CALLBACK_2(Dialog::onTouchEnded, this);
-		listener->onTouchCancelled = CC_CALLBACK_2(Dialog::onTouchCancelled, this);
-		//_eventDispatcher->addEventListenerWithFixedPriority(listener, -128);
-        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-		this->_menu = nullptr;
-		this->_scale = 1.0;
+    Dialog* Dialog::build() {
+        auto layer = Dialog::create();
+        return dynamic_cast<Dialog *> (layer);
+    }
+
+    Dialog* Dialog::getInstance() {
+        return __instance;
+    }
+
+    bool Dialog::init() {
+        if (!LayerColor::initWithColor(Color4B(0, 0, 0, 128))) {
+            return false;
+        }
+        auto listener = EventListenerTouchOneByOne::create();
+        listener->setSwallowTouches(true);
+        listener->onTouchBegan = CC_CALLBACK_2(Dialog::onTouchBegan, this);
+        listener->onTouchMoved = CC_CALLBACK_2(Dialog::onTouchMoved, this);
+        listener->onTouchEnded = CC_CALLBACK_2(Dialog::onTouchEnded, this);
+        listener->onTouchCancelled = CC_CALLBACK_2(Dialog::onTouchCancelled, this);
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);     
+        this->_menu = nullptr;
+        this->_dialog = nullptr;
+        this->_scale = 1.0;
         this->_dc = nullptr;
-		//this->_title = nullptr;
-		//this->_text = nullptr;
-		//this->_yes = nullptr;
-		//this->_neutral = nullptr;
-		return true;
-	}
+        //this->_title = nullptr;
+        //this->_text = nullptr;
+        //this->_yes = nullptr;
+        //this->_neutral = nullptr;
+        __instance = nullptr;
+        return true;
+    }
 
     Dialog * Dialog::setContentScale(float scale) {
-		this->_scale = scale;
+        this->_scale = scale;
         return this;
-	}
+    }
 
     void Dialog::show(const char * title, const char * text, const DialogCallback &callback,
-		const char * yes, const char * no , const char *neutral) {
-		Rect r1, r2;
+        const char * yes, const char * no, const char *neutral) {
+        Rect r1, r2;
         float height, margin;
         float buttonWidth, buttonHeight, buttonBorder, buttonSize;
         Size wndSize;
@@ -92,14 +99,14 @@ namespace z299studio {
         const char * ptrs[3], *args[3] = { no, neutral, yes };
         int styles[3];
         int answers[3];
-        LabelTTF * labelTitle, * labelText;
+        LabelTTF * labelTitle, *labelText;
         wndSize = Director::getInstance()->getVisibleSize();
         wndSize.width -= 24 * this->_scale;
         MenuItemSprite * mis[3] = { nullptr, nullptr, nullptr };
         height = 0;
         margin = 24 * this->_scale;
-		this->_dialog = Sprite::create();
-       
+        this->_dialog = Sprite::create();
+
         itemCount = 0;
         for (i = 0; i < 3; i++) {
             if (args[i]) {
@@ -126,7 +133,7 @@ namespace z299studio {
         height += buttonHeight;
 
         labelText = LabelTTF::create(text, "Arial", 32 * _scale);
-        labelText->setPosition(wndSize.width/2, buttonHeight + labelText->getContentSize().height/2 + margin);
+        labelText->setPosition(wndSize.width / 2, buttonHeight + labelText->getContentSize().height / 2 + margin);
         this->_dialog->addChild(labelText);
         height += labelText->getContentSize().height + 2 * margin;
         if (title != nullptr) {
@@ -146,9 +153,10 @@ namespace z299studio {
         this->addChild(this->_dialog);
         Director::getInstance()->getRunningScene()->addChild(this);
         this->_dc = callback;
-	}
+        __instance = this;
+    }
 
-	void Dialog::dialogCallback(Ref *pSender, int answer) {
+    void Dialog::dialogCallback(Ref *pSender, int answer) {
         if (!_dc) {
             dismiss();
             return;
@@ -156,13 +164,14 @@ namespace z299studio {
         if (_dc(answer)) {
             dismiss();
         }
-	}
+    }
 
     void Dialog::dismiss() {
         this->_dialog->runAction(Sequence::create(
             ScaleTo::create(0.15f, 0.1f),
             CallFunc::create(CC_CALLBACK_0(Dialog::onDismiss, this)),
             nullptr));
+        __instance = nullptr;;
     }
 
     void Dialog::onDismiss() {
@@ -170,19 +179,19 @@ namespace z299studio {
         Director::getInstance()->getRunningScene()->removeChild(this);
     }
 
-	bool Dialog::onTouchBegan(Touch * touch, Event * event) {
-		return true;
-	}
+    bool Dialog::onTouchBegan(Touch * touch, Event * event) {
+        return true;
+    }
 
-	void Dialog::onTouchMoved(Touch * touch, Event * event) {
-	}
+    void Dialog::onTouchMoved(Touch * touch, Event * event) {
+    }
 
-	void Dialog::onTouchEnded(Touch * touch, Event * event) {
-	}
+    void Dialog::onTouchEnded(Touch * touch, Event * event) {
+    }
 
-	void Dialog::onTouchCancelled(Touch * touch, Event * event) {
-	}
-
+    void Dialog::onTouchCancelled(Touch * touch, Event * event) {
+    }
+    
 	//inline Dialog* Dialog::setTitle(const char * title) {
 	//	this->_title = LabelTTF::create(title, "Arial", 32);
 	//	this->_title->setColor(__clrtxt);

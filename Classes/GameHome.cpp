@@ -299,11 +299,10 @@ bool GameHome::respondGooglePlay(int answer) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 void GameHome::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
 	if (keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE) {
-		//auto dialog = this->getChildByTag(2990);
-		//if(dialog!=nullptr) {
-		//	confirmCallback(0, 0);
-		//	return;
-		//}
+        if(Dialog::getInstance()) {
+            Dialog::getInstance()->dismiss();
+            return;
+        }
 		Director::getInstance()->end();
 		StrRes::killInstance();
 	}
