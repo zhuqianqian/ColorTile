@@ -69,6 +69,7 @@ namespace z299studio {
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 		this->_menu = nullptr;
 		this->_scale = 1.0;
+        this->_dc = nullptr;
 		//this->_title = nullptr;
 		//this->_text = nullptr;
 		//this->_yes = nullptr;
@@ -81,10 +82,9 @@ namespace z299studio {
         return this;
 	}
 
-	void Dialog::show(const char * title, const char * text, const ccMenuCallback &callback,
+    void Dialog::show(const char * title, const char * text, const DialogCallback &callback,
 		const char * yes, const char * no , const char *neutral) {
 		Rect r1, r2;
-        Sprite * sTitle;
         float height, margin;
         float buttonWidth, buttonHeight, buttonBorder, buttonSize;
         Size wndSize;
@@ -113,7 +113,7 @@ namespace z299studio {
         buttonWidth = wndSize.width / itemCount;
         buttonHeight = 64 * this->_scale;
         buttonBorder = 1 * this->_scale;
-        buttonSize = 28 * this->_scale;
+        buttonSize = 30 * this->_scale;
         for (i = 0; i < itemCount; ++i) {
             mis[i] = createDialogButton(ptrs[i], buttonWidth, buttonHeight, buttonSize, buttonBorder,
                 __clrbkg, __clrdrk, styles[i], CC_CALLBACK_1(Dialog::dialogCallback, this, answers[i]));
@@ -145,35 +145,42 @@ namespace z299studio {
             ScaleTo::create(0.1f, 1.0f), NULL));
         this->addChild(this->_dialog);
         Director::getInstance()->getRunningScene()->addChild(this);
+        this->_dc = callback;
 	}
 
 	void Dialog::dialogCallback(Ref *pSender, int answer) {
-		
+        if (!_dc) {
+            dismiss();
+            return;
+        }
+        if (_dc(answer)) {
+            dismiss();
+        }
 	}
 
+    void Dialog::dismiss() {
+        this->_dialog->runAction(Sequence::create(
+            ScaleTo::create(0.15f, 0.1f),
+            CallFunc::create(CC_CALLBACK_0(Dialog::onDismiss, this)),
+            nullptr));
+    }
+
+    void Dialog::onDismiss() {
+        this->removeChild(this->_dialog);
+        Director::getInstance()->getRunningScene()->removeChild(this);
+    }
+
 	bool Dialog::onTouchBegan(Touch * touch, Event * event) {
-	/*	if (this->_menu) {
-			this->_menu->onTouchBegan(touch, event);
-		}*/
 		return true;
 	}
 
 	void Dialog::onTouchMoved(Touch * touch, Event * event) {
-		/*if (this->_menu) {
-			this->_menu->onTouchMoved(touch, event);
-		}*/
 	}
 
 	void Dialog::onTouchEnded(Touch * touch, Event * event) {
-	/*	if (this->_menu) {
-			this->_menu->onTouchEnded(touch, event);
-		}*/
 	}
 
 	void Dialog::onTouchCancelled(Touch * touch, Event * event) {
-		/*if (this->_menu) {
-			this->_menu->onTouchCancelled(touch, event);
-		}*/
 	}
 
 	//inline Dialog* Dialog::setTitle(const char * title) {

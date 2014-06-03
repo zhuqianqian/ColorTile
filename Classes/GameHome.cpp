@@ -223,8 +223,11 @@ void GameHome::onNewGame(Ref* pSender, int mode)
 	}
 	else {
 		if (GAME_OVER != UserDefault::getInstance()->getIntegerForKey(SP_GAME_STATUS, GAME_OVER)) {
-			confirmOverwrite(mode);
-            //Dialog::build()->show()
+            auto sr = StrRes::getInstance();
+            Dialog::build()->setContentScale(this->_xScale)
+                ->show(nullptr, sr->getString(RSTR::overwrite_game),
+                CC_CALLBACK_1(GameHome::confirmCallback, this, mode),
+                sr->getString(RSTR::yes), sr->getString(RSTR::no));
 			return;
 		}
 		GameBase::gameStartNew = 1;
@@ -241,55 +244,9 @@ void GameHome::onNewGame(Ref* pSender, int mode)
 	Director::getInstance()->replaceScene(reScene);
 }
 
-void GameHome::confirmOverwrite(int mode) {
-	//this->_menu->setEnabled(false);
-	//auto bkg = Sprite::create();
-	auto sr = StrRes::getInstance();
-	//Rect r;
-	//float btnWidth = 220 * this->_xScale;
-	//float btnHeight = 72 * this->_xScale;
-	//float btnBorder = 2 * this->_xScale;
-	//float fntSize = 32 * this->_xScale;
-	//Color3B color0(145, 151, 163);
-	//Color3B color1(83, 88, 100);
-	//r.setRect(0, 0, 440.0f*this->_xScale, 200.0f*this->_xScale);
-	//auto layer = Sprite::create();
-	//layer->setColor(Color3B(0, 0, 0));
-	//layer->setTextureRect({ 0, 0, this->_size.width, this->_size.height });
-	//layer->setPosition(this->_size.width / 2, this->_size.height / 2);
-	//layer->setOpacity(128);
-	//this->addChild(layer, 1, 2990);
-	//bkg->setColor(color0);
-	//bkg->setTextureRect(r);
-	//bkg->runAction(Sequence::create(
-	//	ScaleTo::create(0.00f, 0.1f), 
-	//	ScaleTo::create(0.2f, 1.1f),
-	//	ScaleTo::create(0.1f, 1.0f), NULL));
-	//bkg->setPosition(this->_size.width / 2, this->_size.height / 2);
-	//layer->addChild(bkg);
-	//auto text = LabelTTF::create(sr->getString(RSTR::overwrite_game), "Arial", 32*this->_xScale);
-	//text->setPosition(220.0f*this->_xScale, 140 * this->_xScale);
-	//bkg->addChild(text);
-	//auto yes = createDialogButton(sr->getString(RSTR::yes), btnWidth, btnHeight, fntSize, btnBorder,
-	//	color0, color1, 1, CC_CALLBACK_1(GameHome::confirmCallback, this, 1, mode));
-	//auto no = createDialogButton(sr->getString(RSTR::no), btnWidth, btnHeight, fntSize, btnBorder,
-	//	color0, color1, 0, CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode));
-	//yes->setAnchorPoint({ 0, 0 });
-	//no->setAnchorPoint({ 0, 0 });
-	//yes->setPosition(220 * this->_xScale, 0);
-	//no->setPosition(0,0);
-	//auto options = Menu::create(yes, no, nullptr);
-	//options->setPosition(Point::ZERO);
-	//bkg->addChild(options);
-    Dialog::build()->setContentScale(this->_xScale)
-        ->show(nullptr, sr->getString(RSTR::overwrite_game), 
-        CC_CALLBACK_1(GameHome::confirmCallback, this, 0, mode),
-        sr->getString(RSTR::yes), sr->getString(RSTR::no) );
-}
 
-void GameHome::confirmCallback(Ref * pSender, int answer, int mode) {
+bool GameHome::confirmCallback(int answer, int mode) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
-	this->_menu->setEnabled(true);
 	if (answer) {
 		GameBase::gameStartNew = 1;
 		Scene * mainScene;
@@ -302,7 +259,7 @@ void GameHome::confirmCallback(Ref * pSender, int answer, int mode) {
 		auto reScene = TransitionFadeTR::create(1.0, mainScene);
 		Director::getInstance()->replaceScene(reScene);
 	}
-	this->removeChildByTag(2990);
+    return true;
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -318,51 +275,15 @@ void GameHome::onLeaderboard(Ref * pSender) {
 }
 
 void GameHome::askUseGooglePlay(float dt) {
-	this->_menu->setEnabled(false);
-	auto bkg = Sprite::create();
-	auto sr = StrRes::getInstance();
-	Rect r;
-	float btnWidth = 220 * this->_xScale;
-	float btnHeight = 72 * this->_xScale;
-	float btnBorder = 2 * this->_xScale;
-	float fntSize = 32 * this->_xScale;
-	Color3B color0(145, 151, 163);
-	Color3B color1(83, 88, 100);
-	r.setRect(0, 0, 440.0f*this->_xScale, 240.0f*this->_xScale);
-	auto layer = Sprite::create();
-	layer->setColor(Color3B(0, 0, 0));
-	layer->setTextureRect({ 0, 0, this->_size.width, this->_size.height });
-	layer->setPosition(this->_size.width / 2, this->_size.height / 2);
-	layer->setOpacity(128);
-	this->addChild(layer, 1, 2990);
-	bkg->setColor(color0);
-	bkg->setTextureRect(r);
-	bkg->runAction(Sequence::create(
-		ScaleTo::create(0.00f, 0.1f),
-		ScaleTo::create(0.2f, 1.1f),
-		ScaleTo::create(0.1f, 1.0f), NULL));
-	bkg->setPosition(this->_size.width / 2, this->_size.height / 2);
-	layer->addChild(bkg);
-	auto text = LabelTTF::create(sr->getString(RSTR::use_google_ask), "Arial", 32 * this->_xScale);
-	text->setPosition(220.0f*this->_xScale, 160 * this->_xScale);
-	bkg->addChild(text);
-	auto yes = createDialogButton(sr->getString(RSTR::signin), btnWidth, btnHeight, fntSize, btnBorder,
-		color0, color1, 1, CC_CALLBACK_1(GameHome::respondGooglePlay, this, 1));
-	auto no = createDialogButton(sr->getString(RSTR::no), btnWidth, btnHeight, fntSize, btnBorder,
-		color0, color1, 0, CC_CALLBACK_1(GameHome::respondGooglePlay, this, 0));
-	yes->setAnchorPoint({ 0, 0 });
-	no->setAnchorPoint({ 0, 0 });
-	yes->setPosition(220 * this->_xScale, 0);
-	no->setPosition(0, 0);
-	auto options = Menu::create(yes, no, nullptr);
-	options->setPosition(Point::ZERO);
-	bkg->addChild(options);
+    auto sr = StrRes::getInstance();
+    Dialog::build()->setContentScale(this->_xScale)
+        ->show(nullptr, sr->getString(RSTR::use_google_ask),        
+        CC_CALLBACK_1(GameHome::respondGooglePlay, this),
+        sr->getString(RSTR::signin), sr->getString(RSTR::no));
 }
 
-void GameHome::respondGooglePlay(cocos2d::Ref* pSender, int answer) {
+bool GameHome::respondGooglePlay(int answer) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
-	this->removeChildByTag(2990);
-	this->_menu->setEnabled(true);
 	if (answer) {
 		::beginUserInitiatedSigned();
 		//UserDefault::getInstance()->setBoolForKey(SP_ENABLE_GOOGLE, true);
@@ -370,6 +291,7 @@ void GameHome::respondGooglePlay(cocos2d::Ref* pSender, int answer) {
 	else {
 		UserDefault::getInstance()->setIntegerForKey(SP_ASK_GOOGLE, 0);
 	}
+    return true;
 }
 
 #endif /* CC_TARGET_PLATFORM */
@@ -377,11 +299,11 @@ void GameHome::respondGooglePlay(cocos2d::Ref* pSender, int answer) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 void GameHome::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
 	if (keyCode == EventKeyboard::KeyCode::KEY_BACKSPACE) {
-		auto dialog = this->getChildByTag(2990);
-		if(dialog!=nullptr) {
-			confirmCallback(nullptr, 0, 0);
-			return;
-		}
+		//auto dialog = this->getChildByTag(2990);
+		//if(dialog!=nullptr) {
+		//	confirmCallback(0, 0);
+		//	return;
+		//}
 		Director::getInstance()->end();
 		StrRes::killInstance();
 	}

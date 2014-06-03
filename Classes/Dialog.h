@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 
 namespace z299studio {
-	typedef std::function<void(int, void *)> DialogCallback;
+	typedef std::function<bool(int)> DialogCallback;
 
 	class Dialog : public cocos2d::LayerColor {
 	public:
@@ -35,7 +35,7 @@ namespace z299studio {
 		//void show();
 		Dialog* setContentScale(float scale);
 		void dismiss();
-		void show(const char * title, const char * text, const cocos2d::ccMenuCallback &callback,
+		void show(const char * title, const char * text, const DialogCallback &callback,
 			const char * yes, const char * no = nullptr, const char *neutral = nullptr);
 
 		virtual bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event);
@@ -45,7 +45,7 @@ namespace z299studio {
 
 	private:
 		void dialogCallback(cocos2d::Ref * pSender, int answer);
-		
+        void onDismiss();
 		DialogCallback _dc;
 		/*cocos2d::LabelTTF * _title,
 			*_text,

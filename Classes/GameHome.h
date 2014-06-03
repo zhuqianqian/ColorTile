@@ -22,9 +22,10 @@ public:
     static cocos2d::Scene* createScene();
 	virtual bool init();  
     void onNewGame(cocos2d::Ref* pSender, int mode);
+    bool confirmCallback(int answer, int mode);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	void askUseGooglePlay(float dt);
-	void respondGooglePlay(cocos2d::Ref* pSender, int answer);
+	bool respondGooglePlay(int answer);
 	void onLeaderboard(cocos2d::Ref *pSender);
 #endif /* CC_TARGET_PLATFORM */
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -37,9 +38,6 @@ private:
 	void randomTile(float dt);
 	void initRandomBkg(int max = 8);
 	void onFadeFinish(cocos2d::Node *, void * index);
-
-	void confirmOverwrite(int mode);
-	void confirmCallback(cocos2d::Ref * pSender, int answer, int mode);
 	cocos2d::Size _size;
 	cocos2d::Sprite *_sprites[8];
 	float _xScale; 

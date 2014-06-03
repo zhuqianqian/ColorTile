@@ -12,7 +12,7 @@ public:
 	virtual void startTutorial() override;
 	void formatScore(char *str, int score) override;
 	void onGiveUp(cocos2d::Ref* pSender) override;
-	void dialogCallback(cocos2d::Ref * pSender, int answer);
+	bool dialogCallback(int answer);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 #endif

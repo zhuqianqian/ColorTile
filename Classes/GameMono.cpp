@@ -1,10 +1,11 @@
 #include "GameMono.h"
 #include "GameHome.h"
+#include "Dialog.h"
 #include "SimpleAudioEngine.h"
 #include "strres.h"
 
 USING_NS_CC;
-
+using namespace z299studio;
 Scene* GameMono::createScene()
 {
 	auto scene = Scene::create();
@@ -101,62 +102,21 @@ inline void GameMono::formatScore(char *str, int score) {
 }
 
 void GameMono::onGiveUp(Ref * pSender) {
-	Size size;
-	float btnWidth = 220 * this->_xScale;
-	float btnHeight = 72 * this->_xScale;
-	float btnBorder = 2 * this->_xScale;
-	float fntSize = 32 * this->_xScale;
-	Color3B color0(145, 151, 163);
-	Color3B color1(83, 88, 100);
-	this->_funcbar->setEnabled(false);
+
 	this->_status = GAME_PAUSED;
 	auto sr = StrRes::getInstance();
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
-	auto bkg = Sprite::create();
-	size = Director::getInstance()->getVisibleSize();
-	Rect r;
-	r.setRect(0, 0, 440.0f*this->_xScale, 200.0f*this->_xScale);
-	auto layer = Sprite::create();
-	layer->setColor(Color3B(0, 0, 0));
-	layer->setTextureRect({ 0, 0, size.width, size.height });
-	layer->setPosition(size.width / 2, size.height / 2);
-	layer->setOpacity(128);
-	this->addChild(layer, 1, 2990);
-	bkg->setColor(color0);
-	bkg->setTextureRect(r);
-	bkg->runAction(Sequence::create(
-		ScaleTo::create(0.00f, 0.1f),
-		ScaleTo::create(0.2f, 1.1f),
-		ScaleTo::create(0.1f, 1.0f), NULL));
-	bkg->setPosition(size.width / 2, size.height / 2);
-	layer->addChild(bkg);
-	
-	auto text = LabelTTF::create(sr->getString(RSTR::giveup_ask), "Arial", 32 * this->_xScale);
-	text->setPosition(220.0f*this->_xScale, 140 * this->_xScale);
-	bkg->addChild(text);
-	
-	auto yes = GameHome::createDialogButton(sr->getString(RSTR::giveup_yes), btnWidth, btnHeight, fntSize, btnBorder,
-		color0, color1, 1, CC_CALLBACK_1(GameMono::dialogCallback, this, 1));
-	auto no = GameHome::createDialogButton(sr->getString(RSTR::giveup_no), btnWidth, btnHeight, fntSize, btnBorder,
-		color0, color1, 0, CC_CALLBACK_1(GameMono::dialogCallback, this, 0));
-	yes->setAnchorPoint({ 0, 0 });
-	no->setAnchorPoint({ 0, 0 });
-	yes->setPosition(220 * this->_xScale, 0);
-	no->setPosition(0, 0);
-	auto options = Menu::create(yes, no, nullptr);
-	options->setPosition(Point::ZERO);
-	bkg->addChild(options);
+    Dialog::build()->show(nullptr, sr->getString(RSTR::giveup_ask),
+        CC_CALLBACK_1(GameMono::dialogCallback, this),
+        sr->getString(RSTR::giveup_yes), sr->getString(RSTR::giveup_no));
 }
 
-void GameMono::dialogCallback(Ref *pSender, int answer) {
+bool GameMono::dialogCallback(int answer) {
 	int i;
 	int colorCount[3] = {0, 0, 0};
     int temp,
 		multi = 0;
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
-	this->_funcbar->setEnabled(true);
 	this->_status = GAME_RUNNING;
-	this->removeChildByTag(2990);
 	if (answer) {
 		for (i = 0; i < this->_xCount * this->_yCount; ++i) {
 			colorCount[this->_tileColors[i]]++;
@@ -201,6 +161,7 @@ void GameMono::dialogCallback(Ref *pSender, int answer) {
 		this->_score += (temp * 4 + colorCount[0] * 4 + colorCount[1] * 8);
 		onGameOver();
 	}
+    return true;
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
