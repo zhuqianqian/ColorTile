@@ -61,6 +61,7 @@ bool GameHome::init()
 	this->useGoogleGame = UserDefault::getInstance()->getBoolForKey(SP_ENABLE_GOOGLE, false);
     auto settingItem = MenuItemImage::create("settings0.png", "settings1.png", CC_CALLBACK_1(GameHome::onSettings, this));
     settingItem->setScale(this->_xScale);
+    settingItem->setAnchorPoint({ 1.0f, 0.0f });
     settingItem->setPosition(this->_size.width - 32 * this->_xScale, 32 * this->_xScale);
 	auto newItem = createTextButton(sr->getString(RSTR::new_game), btnWidth, btnHeight, btnFont, btnBorder, 
 		Color3B(78, 205, 168), Color3B(157, 230, 208), CC_CALLBACK_1(GameHome::onNewGame, this, GAME_NORMAL));
