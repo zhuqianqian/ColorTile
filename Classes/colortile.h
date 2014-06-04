@@ -24,6 +24,7 @@
 #define SP_ASK_GOOGLE	    ("AskToUseGoogle")
 #define SP_TUTORIAL_CLASSIC	("ClassicTutorial")
 #define SP_TUTORIAL_MONO	("MonoColorTutorial")
+#define SP_SOUND    ("Sound")
 
 #define GAME_NORMAL	(0)
 #define GAME_MONOCLR	(1)

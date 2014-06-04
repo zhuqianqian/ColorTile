@@ -30,3 +30,9 @@ Start new game?</item>
 Signin Google+ to compare
 high scores with others.</item>
 <item id="signin">Signin</item>
+<item id="settings">Settings</item>
+<item id="sound_on">Sound Effects</item>
+<item id="about">About</item>
+<item id="version">Color Tile
+Android Version 1.3</item>
+<item id="tutorial_on">Show tutorials<item>

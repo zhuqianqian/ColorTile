@@ -15,7 +15,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/GameMono.cpp \
                    ../../Classes/gpghelper.cpp \
                    ../../Classes/StrRes.cpp \
-                   ../../Classes/Dialog.cpp
+                   ../../Classes/Dialog.cpp \
+                   ../../Classes/GameSettings.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

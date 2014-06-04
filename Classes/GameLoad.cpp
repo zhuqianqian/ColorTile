@@ -1,6 +1,7 @@
 #include "GameLoad.h"
 #include "GameHome.h"
 #include "colortile.h"
+#include "SimpleAudioEngine.h"
 
 #if (CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #include "gpghelper.h"
@@ -26,7 +27,8 @@ bool GameLoad::init()
 	//this->_tried = 3;
 	Size size = Director::getInstance()->getVisibleSize();
 	float scale = size.width / DESIGN_WIDTH;
-
+    CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(
+        UserDefault::getInstance()->getIntegerForKey(SP_SOUND, 1));
 	auto bkg = Sprite::create("load_screen.png");
 	bkg->setScale(scale, scale);
 	bkg->setPosition(size.width / 2, size.height / 2);
