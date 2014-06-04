@@ -131,52 +131,6 @@ MenuItemSprite* GameHome::createTextButton(const char *text,
 	return MenuItemSprite::create(bkgNormal, bkgPressed, callback);
 }
 
-MenuItemSprite* GameHome::createDialogButton(const char *text,
-	float width, float height,
-	float fntSize, float border,
-	const cocos2d::Color3B normal,
-	const cocos2d::Color3B pressed,
-	const int style,
-	const cocos2d::ccMenuCallback &callback)
-{
-	Rect r1, r2;
-	static Color3B colorWhite(255, 255, 255);
-	r1.setRect(0, 0, width, height);
-	if (style == 0) {
-		r2.setRect(0, 0, width - border, height - border);
-	}
-	else if (style == 1) {
-		r2.setRect(0, 0, width, height - border);
-	}
-	else {
-		r2.setRect(border, 0, width - border, height - border);
-	}
-	auto bkgNormal = Sprite::create();
-	auto bkgPressed = Sprite::create();
-	auto rectNormal = Sprite::create();
-	auto rectPressed = Sprite::create();
-	auto label = LabelTTF::create(text, "Arial", fntSize);
-	bkgNormal->setColor(colorWhite);
-	bkgPressed->setColor(colorWhite);
-	bkgNormal->setTextureRect(r1);
-	bkgPressed->setTextureRect(r1);
-	rectNormal->setColor(normal);
-	rectNormal->setTextureRect(r2);
-	rectPressed->setColor(pressed);
-	rectPressed->setTextureRect(r2);
-	label->setPosition(width / 2, height / 2);
-	rectNormal->setAnchorPoint({ 0, 0 });
-	rectPressed->setAnchorPoint({ 0, 0 });
-	rectNormal->setPosition(0, 0);
-	rectPressed->setPosition(0, 0);
-	rectNormal->addChild(label);
-	rectPressed->addChild(label);
-	bkgNormal->addChild(rectNormal);
-	bkgPressed->addChild(rectPressed);
-
-	return MenuItemSprite::create(bkgNormal, bkgPressed, callback);
-}
-
 void GameHome::initRandomBkg(int max) {
 	this->_max = max;
 	if (max > 8) {

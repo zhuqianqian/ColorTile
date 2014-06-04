@@ -12,13 +12,6 @@ public:
 		const cocos2d::Color3B normal,
 		const cocos2d::Color3B pressed,
 		const cocos2d::ccMenuCallback &callback);
-	static cocos2d::MenuItemSprite * createDialogButton(const char *text,
-		float width, float height,
-		float fntSize, float border,
-		const cocos2d::Color3B normal,
-		const cocos2d::Color3B pressed,
-		const int style,
-		const cocos2d::ccMenuCallback &callback);
     static cocos2d::Scene* createScene();
 	virtual bool init();  
     void onNewGame(cocos2d::Ref* pSender, int mode);
