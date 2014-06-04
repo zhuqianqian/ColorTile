@@ -22,6 +22,7 @@ public:
     static cocos2d::Scene* createScene();
 	virtual bool init();  
     void onNewGame(cocos2d::Ref* pSender, int mode);
+    void onSettings(cocos2d::Ref* pSender);
     bool confirmCallback(int answer, int mode);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	void askUseGooglePlay(float dt);

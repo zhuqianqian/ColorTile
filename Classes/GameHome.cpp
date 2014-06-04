@@ -5,6 +5,7 @@
 #include "GameNormal.h"
 #include "GameMono.h"
 #include "Dialog.h"
+#include "GameSettings.h"
 #include "strres.h"
 
 #if (CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
@@ -58,6 +59,9 @@ bool GameHome::init()
 	Menu *menu;
 	MenuItemSprite * lbItem = NULL;
 	this->useGoogleGame = UserDefault::getInstance()->getBoolForKey(SP_ENABLE_GOOGLE, false);
+    auto settingItem = MenuItemImage::create("settings0.png", "settings1.png", CC_CALLBACK_1(GameHome::onSettings, this));
+    settingItem->setScale(this->_xScale);
+    settingItem->setPosition(this->_size.width - 32 * this->_xScale, 32 * this->_xScale);
 	auto newItem = createTextButton(sr->getString(RSTR::new_game), btnWidth, btnHeight, btnFont, btnBorder, 
 		Color3B(78, 205, 168), Color3B(157, 230, 208), CC_CALLBACK_1(GameHome::onNewGame, this, GAME_NORMAL));
 	auto monoItem = createTextButton(sr->getString(RSTR::monocolor), btnWidth, btnHeight, btnFont, btnBorder,
@@ -82,6 +86,9 @@ bool GameHome::init()
 	this->_halfSize = this->_tileSize / 2;
 	menu->alignItemsVerticallyWithPadding(32 * this->_xScale);
 	menu->setPosition(this->_size.width / 2, this->_size.height / 2);
+    auto menuSettings = Menu::create(settingItem, nullptr);
+    menuSettings->setPosition(Point::ZERO);
+    this->addChild(menuSettings, 1);
 	this->addChild(menu, 1);
 	this->initRandomBkg();
 	this->schedule(schedule_selector(GameHome::randomTile), 1.0, kRepeatForever, 0.5);
@@ -211,6 +218,13 @@ void GameHome::randomTile(float dt) {
 void GameHome::onFadeFinish(Node * node, void * index) {
 	int n = (int)index;
 	this->_sindex[n] = 1;
+}
+
+void GameHome::onSettings(Ref * pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
+    auto scene = GameSettings::createScene();
+    auto reScene = TransitionMoveInB::create(1.0, scene);
+    Director::getInstance()->replaceScene(reScene);
 }
 
 void GameHome::onNewGame(Ref* pSender, int mode)
