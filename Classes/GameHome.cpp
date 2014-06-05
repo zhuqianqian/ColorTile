@@ -124,12 +124,11 @@ MenuItemSprite* GameHome::createTextButton(const char *text,
 	label->setPosition(width / 2, height / 2);
 	rectNormal->setPosition(width / 2, height / 2);
 	rectPressed->setPosition(width / 2, height / 2);
-	rectNormal->addChild(label);
-	rectPressed->addChild(label);
 	bkgNormal->addChild(rectNormal);
 	bkgPressed->addChild(rectPressed);
-
-	return MenuItemSprite::create(bkgNormal, bkgPressed, callback);
+	auto mis = MenuItemSprite::create(bkgNormal, bkgPressed, callback);
+    mis->addChild(label);
+    return mis;
 }
 
 void GameHome::initRandomBkg(int max) {
