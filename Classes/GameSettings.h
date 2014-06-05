@@ -16,9 +16,9 @@ public:
 #endif /* CC_TARGET_PLATFORM */
 private:
     float addTitle(const char *title);
+    float addHeader(const char *header, cocos2d::Point *loc);
     void setOption(cocos2d::Sprite* option, int status);
     cocos2d::Sprite* addOption(const char *option, cocos2d::Point *loc, int status);
-
     cocos2d::Size _wndSize;
     float _scale;
     cocos2d::Sprite* _sound;

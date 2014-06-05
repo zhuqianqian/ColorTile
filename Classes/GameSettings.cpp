@@ -28,6 +28,8 @@ bool GameSettings::init() {
     this->_scale = this->_wndSize.width / DESIGN_WIDTH;
     loc.y = addTitle(sr->getString(RSTR::settings));
     loc.y -= 12;
+    loc.y -= addHeader(sr->getString(RSTR::settings), &loc);
+    loc.y -= 12;
     this->_soundOn = ud->getIntegerForKey(SP_SOUND, 1);
     this->_sound = addOption(sr->getString(RSTR::sound_on), &loc, this->_soundOn);
     this->_tutorialOn = ud->getIntegerForKey(SP_TUTORIAL_CLASSIC, 1);
@@ -69,31 +71,55 @@ float GameSettings::addTitle(const char *title) {
     return (this->_wndSize.height - 64 * this->_scale);
 }
 
+float GameSettings::addHeader(const char *header, Point * loc) {
+    Rect r;
+    float height;
+    static float margin = 16 * this->_scale,
+        length = this->_wndSize.width - margin - margin - margin;
+    Sprite * line = Sprite::create();
+    r.setRect(0, 0, length, 2.0 * this->_scale);
+    line->setTextureRect(r);
+    line->setColor(Color3B::BLACK);
+    auto label = LabelTTF::create(header, "Arial", 32 * this->_scale,
+        Size::ZERO, TextHAlignment::LEFT);
+    label->setColor(Color3B::BLACK);
+    label->setAnchorPoint({ 0.0f, 1.0f });
+    label->setPosition(margin, loc->y);
+    this->addChild(label);
+    height = label->getContentSize().height;
+    line->setAnchorPoint({ 0.0f, 1.0f });
+    line->setPosition(margin, loc->y - height);
+    this->addChild(line);
+    return height;
+}
+
 Sprite* GameSettings::addOption(const char *option, Point *loc, int status) {
+    static float margin = 16 * this->_scale,
+        length = this->_wndSize.width - margin - margin - margin;
     char pngs[][16] = { "checkbox0.png", "checkbox1.png" };
     int tags[] = { TAG_CHECKBOX0, TAG_CHECKBOX1};
     auto bkg = Sprite::create();
     Rect r;
-    r.setRect(0, 0, this->_wndSize.width, 48 * this->_scale);
+    r.setRect(0, 0, length, 48 * this->_scale);
     bkg->setTextureRect(r);
     bkg->setAnchorPoint({ 0.0f, 1.0f });
-    bkg->setPosition(0, (*loc).y - 12 * this->_scale);
-    bkg->setColor(Color3B(238, 224, 0));
+    bkg->setPosition(margin, (*loc).y - 12 * this->_scale);
+    //bkg->setColor(Color3B(238, 224, 0));
     auto label = LabelTTF::create(option, "Arial", 28 * this->_scale, 
         Size::ZERO, TextHAlignment::LEFT, TextVAlignment::CENTER);
     label->setColor(Color3B::BLACK);
     label->setAnchorPoint({ 0.0f, 0.5f });
-    label->setPosition(32 * this->_scale, 24 * this->_scale);
+    label->setPosition(margin, 24 * this->_scale);
     bkg->addChild(label); 
     auto checkbox0 = Sprite::create(pngs[0]);
     checkbox0->setScale(this->_scale, this->_scale);
     checkbox0->setAnchorPoint({ 1.0f, 0.0f });
-    checkbox0->setPosition(this->_wndSize.width - 32 * this->_scale, 0);
+    checkbox0->setPosition(length , 0);
     bkg->addChild(checkbox0, 0, tags[0]);
     auto checkbox1 = Sprite::create(pngs[1]);
     checkbox1->setScale(this->_scale, this->_scale);
     checkbox1->setAnchorPoint({ 1.0f, 0.0f });
-    checkbox1->setPosition(this->_wndSize.width - 32 * this->_scale, 0);
+    checkbox1->setPosition(length , 0);
     bkg->addChild(checkbox1, 0, tags[1]);
     if (!status) {
         checkbox1->setVisible(false);
