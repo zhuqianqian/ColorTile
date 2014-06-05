@@ -44,12 +44,11 @@ namespace z299studio {
         rectPressed->setAnchorPoint({ 0, 0 });
         rectNormal->setPosition(0, 0);
         rectPressed->setPosition(0, 0);
-        rectNormal->addChild(label);
-        rectPressed->addChild(label);
         bkgNormal->addChild(rectNormal);
         bkgPressed->addChild(rectPressed);
-
-        return MenuItemSprite::create(bkgNormal, bkgPressed, callback);
+        auto mis = MenuItemSprite::create(bkgNormal, bkgPressed, callback);
+        mis->addChild(label);
+        return mis;
     }
 
     Dialog* Dialog::build() {
