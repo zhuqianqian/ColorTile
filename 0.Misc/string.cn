@@ -1,4 +1,5 @@
-﻿<item id="new_game">经典模式</item>
+﻿<item id="app_name">消除彩块</item>
+<item id="new_game">经典模式</item>
 <item id="resume_game">继续游戏</item>
 <item id="score">分数</item>
 <item id="swipes">划动</item>
@@ -34,3 +35,5 @@
 <item id="version">消除彩块
 安卓版 1.3</item>
 <item id="tutorial_on">显示新手指导<item>
+<item id="rate">评价一下</item>
+<item id="more">更多游戏</item>

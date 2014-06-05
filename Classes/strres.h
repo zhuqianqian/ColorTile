@@ -4,7 +4,8 @@
 #include "cocos2d.h"
 
 enum RSTR {
-    new_game = 0,
+    app_name = 0,
+    new_game,
     resume_game,
     score,
     swipes,
@@ -33,6 +34,8 @@ enum RSTR {
     about,
     version,
     tutorial_on,
+    rate,
+    more,
     _not_used
 };
 

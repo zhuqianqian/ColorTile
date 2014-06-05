@@ -1,3 +1,4 @@
+<item id="app_name">Color Tile</item>
 <item id="new_game">Classic Game</item>
 <item id="resume_game">Resume Game</item>
 <item id="score">Score</item>
@@ -34,5 +35,7 @@ high scores with others.</item>
 <item id="sound_on">Sound Effects</item>
 <item id="about">About</item>
 <item id="version">Color Tile
-Android Version 1.3</item>
+Android Version 1.2</item>
 <item id="tutorial_on">Show tutorials<item>
+<item id="rate">Rate the App</item>
+<item id="more">More Games</item>
