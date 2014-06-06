@@ -12,6 +12,8 @@ extern void showLeaderboard(int id);
 extern void showAllLeaderboards();
 extern int isSignedIn();
 extern void doShare(int mode, int score);
+extern void doRate();
+extern void doMoreGames();
 
 #if defined __cplusplus
 }

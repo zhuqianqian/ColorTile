@@ -34,9 +34,11 @@ import com.z299studio.colortile.BaseGameActivity;
 import com.z299studio.colortile.R;
 
 import android.content.Context;
+import android.content.ActivityNotFoundException;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
+import android.net.Uri;
 
 public class AppActivity extends BaseGameActivity {
 	
@@ -127,6 +129,37 @@ public class AppActivity extends BaseGameActivity {
         }
         return 0;
     }
+
+    public static void onRate() {
+	    ((AppActivity)mContext).runOnUiThread(new Runnable() {
+		    public void run() {
+		        Uri uri = Uri.parse("market://details?id=" + ((AppActivity)mContext).getPackageName());
+		        Intent rateIntent = new Intent(Intent.ACTION_VIEW, uri);
+		        try {
+		            ((AppActivity)mContext).startActivity(rateIntent);
+		        } catch (ActivityNotFoundException e) {
+		            ((AppActivity)mContext).startActivity(new Intent(Intent.ACTION_VIEW, 
+					    Uri.parse("http://play.google.com/store/apps/details?id=" + 
+						((AppActivity)mContext).getPackageName())));
+		        }
+		     }
+		});
+    }
+
+	public static void onMoreGames() {
+		((AppActivity)mContext).runOnUiThread(new Runnable() {
+		    public void run() {
+		        Uri uri = Uri.parse("market://search?q=299Studio");
+		        Intent rateIntent = new Intent(Intent.ACTION_VIEW, uri);
+		        try {
+		            ((AppActivity)mContext).startActivity(rateIntent);
+		        } catch (ActivityNotFoundException e) {
+				    ((AppActivity)mContext).startActivity(new Intent(Intent.ACTION_VIEW, 
+					    Uri.parse("https://play.google.com/store/apps/developer?id=299Studio")));
+		        }
+		     }
+		});
+	}
     
 //    public static void updateAchievement(String id, int percentage) {
 //

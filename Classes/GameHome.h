@@ -6,7 +6,7 @@
 class GameHome : public cocos2d::LayerColor
 {
 public:
-	cocos2d::MenuItemSprite * createTextButton(const char *text,
+	static cocos2d::MenuItemSprite * createTextButton(const char *text,
 		float width, float height, 
 		float fntSize, float border,
 		const cocos2d::Color3B normal,
@@ -27,7 +27,7 @@ public:
 #endif /* CC_TARGET_PLATFORM */
     CREATE_FUNC(GameHome);
 
-private:
+protected:
 
 	void randomTile(float dt);
 	void initRandomBkg(int max = 8);

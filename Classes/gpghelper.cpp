@@ -56,6 +56,22 @@ extern "C" {
         }
 	}
 
+    void doRate() {
+        JniMethodInfo t;
+        if (JniHelper::getStaticMethodInfo(t, APPACTIVITY,
+            "onRate", "()V")) {
+            t.env->CallStaticIntMethod(t.classID, t.methodID);
+        }
+    }
+
+    void doMoreGames() {
+        JniMethodInfo t;
+        if (JniHelper::getStaticMethodInfo(t, APPACTIVITY,
+            "onMoreGames", "()V")) {
+            t.env->CallStaticIntMethod(t.classID, t.methodID);
+        }
+    }
+
 }
 #elif defined (CC_TARGET_OS_IPHONE)
 
@@ -66,5 +82,8 @@ extern "C" {
     void showLeaderboard(int id){}
     void showAllLeaderboards(){}
     int isSignedIn() { return 0;}
+    void doShare(int mode, int score) {}
+    void doRate() {}
+    void doMoreGames() {}
 }
 #endif /* ANDROID */
