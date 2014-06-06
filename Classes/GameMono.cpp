@@ -102,7 +102,7 @@ inline void GameMono::formatScore(char *str, int score) {
 }
 
 void GameMono::onGiveUp(Ref * pSender) {
-
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
 	this->_status = GAME_PAUSED;
 	auto sr = StrRes::getInstance();
     Dialog::build()->setContentScale(this->_xScale)

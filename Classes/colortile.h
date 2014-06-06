@@ -10,6 +10,8 @@
 #define COLOR_4 (Color3B(64, 0, 64))
 #define COLOR_5 (Color3B(0, 255, 255))
 #define COLOR_6 (Color3B(255, 255, 255))
+#define COLOR3_BKG   (Color3B(238, 224, 200))
+#define COLOR4_BKG   (Color4B(238, 224, 200, 255))
 
 #define SP_HS_CLASSIC	("ClassicHighScore")
 #define SP_HS_MONOCOLOR	("MonoColorBest")

@@ -21,7 +21,7 @@ Scene* GameSettings::createScene()
 }
 
 bool GameSettings::init() {
-    if (!LayerColor::initWithColor(Color4B(238, 224, 200, 255)))
+    if (!LayerColor::initWithColor(COLOR4_BKG))
     {
         return false;
     }
@@ -114,16 +114,16 @@ float GameSettings::addHeader(const char *header, Point * loc) {
 }
 
 float GameSettings::addMenus(Point * loc) {
-    float width = 180 * this->_xScale,
+    int width = 180 * this->_xScale,
         height = 48 * this->_xScale,
         fntSize = 28 * this->_xScale,
-        border = 0.0f,
+        border = 2 * this->_xScale,
         margin = 32 * this->_xScale;
     auto sr = StrRes::getInstance();
     auto misMore = GameHome::createTextButton(sr->getString(RSTR::more), width, height, fntSize, border,
-        Color3B::BLACK, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onMoreGames, this));
+        COLOR3_BKG, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onMoreGames, this), Color3B::BLACK);
     auto misRate = GameHome::createTextButton(sr->getString(RSTR::rate), width, height, fntSize, border,
-        Color3B::BLACK, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onMoreGames, this));
+        COLOR3_BKG, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onMoreGames, this), Color3B::BLACK);
     misMore->setAnchorPoint({ 0.0f, 1.0f });
     misRate->setAnchorPoint({ 1.0f, 1.0f });
     misMore->setPosition(margin, loc->y - 12 * this->_xScale);

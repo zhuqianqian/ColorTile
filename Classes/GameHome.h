@@ -7,11 +7,12 @@ class GameHome : public cocos2d::LayerColor
 {
 public:
 	static cocos2d::MenuItemSprite * createTextButton(const char *text,
-		float width, float height, 
-		float fntSize, float border,
+        int width, int height,
+        int fntSize, int border,
 		const cocos2d::Color3B normal,
 		const cocos2d::Color3B pressed,
-		const cocos2d::ccMenuCallback &callback);
+		const cocos2d::ccMenuCallback &callback,
+        const cocos2d::Color3B textColor = cocos2d::Color3B::WHITE);
     static cocos2d::Scene* createScene();
 	virtual bool init();  
     void onNewGame(cocos2d::Ref* pSender, int mode);

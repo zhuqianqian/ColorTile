@@ -92,7 +92,7 @@ namespace z299studio {
         const char * yes, const char * no, const char *neutral) {
         Rect r1, r2;
         float height, margin;
-        float buttonWidth, buttonHeight, buttonBorder, buttonSize;
+        int buttonWidth, buttonHeight, buttonBorder, buttonSize;
         Size wndSize;
         int itemCount, i;
         const char * ptrs[3], *args[3] = { no, neutral, yes };
@@ -118,7 +118,7 @@ namespace z299studio {
         if (itemCount < 1) { return; }
         buttonWidth = wndSize.width / itemCount;
         buttonHeight = 64 * this->_scale;
-        buttonBorder = 1 * this->_scale;
+        buttonBorder = 2 * this->_scale;
         buttonSize = 30 * this->_scale;
         for (i = 0; i < itemCount; ++i) {
             mis[i] = createDialogButton(ptrs[i], buttonWidth, buttonHeight, buttonSize, buttonBorder,
