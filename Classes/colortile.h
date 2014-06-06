@@ -46,18 +46,22 @@
 #define SOUND_BTN	("sound/button.wav")
 #define SOUND_TILE	("sound/tile.wav")
 #define SOUND_CHEER	("sound/cheer.wav")
+#define SOUND_REG   ("sound/reg.wav")
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #define SOUND_BTN	("sound/button.ogg")
 #define SOUND_TILE	("sound/tile.ogg")
 #define SOUND_CHEER	("sound/cheer.ogg")
+#define SOUND_REG   ("sound/reg.ogg")
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #define SOUND_BTN	("sound/button.caf")
 #define SOUND_TILE	("sound/tile.caf")
 #define SOUND_CHEER	("sound/cheer.caf")
+#define SOUND_REG   ("sound/reg.caf")
 #else
 #define SOUND_BTN	("sound/button.mp3")
 #define SOUND_TILE	("sound/tile.mp3")
 #define SOUND_CHEER	("sound/cheer.mp3")
+#define SOUND_REG   ("sound/reg.mp3")
 #endif
 
 #endif /* _COLORTILE_H_ */

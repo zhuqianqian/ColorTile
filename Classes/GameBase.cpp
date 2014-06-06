@@ -286,6 +286,7 @@ bool GameBase::onTouchBegan(Touch *touch, Event *event) {
 		s->runAction(ScaleTo::create(0.1f, 0.85f));
 		this->_swipeRecords[this->_recIndex] = n;
 		this->_recIndex++;
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_TILE);
 	}
 	return true;
 }
@@ -330,6 +331,7 @@ void GameBase::onTouchMoved(Touch * touch, Event * event) {
 				this->_swipeRecords[0] = n;
 				this->_recIndex = 1;
 			}
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_TILE);
 		}
 	}
 }
@@ -377,6 +379,7 @@ void GameBase::onTileUpdate() {
 	char str[4];
 	Sprite *s = NULL;
 	n = this->_recIndex;
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_REG);
 	if (n > 16 && this->_maxStackCap < 9) {
 		adjustStack();
 		sprintf(str, "%d", this->_maxStackCap);
@@ -442,6 +445,7 @@ void GameBase::onGameOver() {
 	LabelTTF * newBest;
 	if (bShowNewBest) {
 		newBest = LabelTTF::create(sr->getString(RSTR::new_best), "Arial", 36 * this->_xScale);
+        CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_CHEER);
 	}
 	else {
 		sprintf(str, "%s: %d", sr->getString(RSTR::best), this->_best);

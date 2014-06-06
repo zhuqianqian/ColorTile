@@ -105,7 +105,8 @@ void GameMono::onGiveUp(Ref * pSender) {
 
 	this->_status = GAME_PAUSED;
 	auto sr = StrRes::getInstance();
-    Dialog::build()->show(nullptr, sr->getString(RSTR::giveup_ask),
+    Dialog::build()->setContentScale(this->_xScale)
+        ->show(nullptr, sr->getString(RSTR::giveup_ask),
         CC_CALLBACK_1(GameMono::dialogCallback, this),
         sr->getString(RSTR::giveup_yes), sr->getString(RSTR::giveup_no));
 }
