@@ -178,7 +178,7 @@ void GameHome::onFadeFinish(Node * node, void * index) {
 void GameHome::onSettings(Ref * pSender) {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
     auto scene = GameSettings::createScene();
-    auto reScene = TransitionMoveInB::create(0.4f, scene);
+    auto reScene = TransitionMoveInR::create(0.25f, scene);
     Director::getInstance()->replaceScene(reScene);
 }
 

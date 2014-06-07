@@ -210,7 +210,7 @@ void GameSettings::onRateApp(Ref * pSender) {
 void GameSettings::onBack(Ref * pSender) {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
     auto homeScene = GameHome::createScene();
-    auto reScene = TransitionMoveInT::create(0.4f, homeScene);
+    auto reScene = TransitionMoveInL::create(0.25f, homeScene);
     Director::getInstance()->replaceScene(reScene);
 }
 
