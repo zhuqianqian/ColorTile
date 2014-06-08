@@ -54,7 +54,7 @@ int GameMono::checkGameOver() {
 bool GameMono::saveBest(char *str)  {
 	UserDefault * ud = UserDefault::getInstance();
 	StrRes *sr = StrRes::getInstance();
-	sprintf(str, "%s: %d", sr->getString(RSTR::score), this->_score);
+	sprintf(str, "%s: %d", sr->getString(RSTR::swipes), this->_score);
 	if (this->_score < this->_best) {
 		this->_best = this->_score;
 		ud->setIntegerForKey(SP_HS_MONOCOLOR, this->_best);
