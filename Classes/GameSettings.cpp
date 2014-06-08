@@ -123,7 +123,7 @@ float GameSettings::addMenus(Point * loc) {
     auto misMore = GameHome::createTextButton(sr->getString(RSTR::more), width, height, fntSize, border,
         COLOR3_BKG, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onMoreGames, this), Color3B::BLACK);
     auto misRate = GameHome::createTextButton(sr->getString(RSTR::rate), width, height, fntSize, border,
-        COLOR3_BKG, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onMoreGames, this), Color3B::BLACK);
+        COLOR3_BKG, Color3B::GRAY, CC_CALLBACK_1(GameSettings::onRateApp, this), Color3B::BLACK);
     misMore->setAnchorPoint({ 0.0f, 1.0f });
     misRate->setAnchorPoint({ 1.0f, 1.0f });
     misMore->setPosition(margin, loc->y - 12 * this->_xScale);
@@ -197,14 +197,14 @@ void GameSettings::setOption(Sprite * option, int status) {
 void GameSettings::onMoreGames(Ref * pSender) {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    doRate();
+    doMoreGames();
 #endif /* CC_TARGET_PLATFORM */
 }
 
 void GameSettings::onRateApp(Ref * pSender) {
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SOUND_BTN);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    doMoreGames();
+    doRate();
 #endif /* CC_TARGET_PLATFORM */
 }
 void GameSettings::onBack(Ref * pSender) {

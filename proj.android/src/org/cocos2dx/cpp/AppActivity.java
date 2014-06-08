@@ -150,9 +150,9 @@ public class AppActivity extends BaseGameActivity {
 		((AppActivity)mContext).runOnUiThread(new Runnable() {
 		    public void run() {
 		        Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=299Studio");
-		        Intent rateIntent = new Intent(Intent.ACTION_VIEW, uri);
+		        Intent moreIntent = new Intent(Intent.ACTION_VIEW, uri);
 		        try {
-		            ((AppActivity)mContext).startActivity(rateIntent);
+		            ((AppActivity)mContext).startActivity(moreIntent);
 		        } catch (ActivityNotFoundException e) {
 		        }
 		     }
