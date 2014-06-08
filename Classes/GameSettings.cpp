@@ -115,7 +115,7 @@ float GameSettings::addHeader(const char *header, Point * loc) {
 
 float GameSettings::addMenus(Point * loc) {
     int width = 180 * this->_xScale,
-        height = 48 * this->_xScale,
+        height = 60 * this->_xScale,
         fntSize = 28 * this->_xScale,
         border = 2 * this->_xScale,
         margin = 32 * this->_xScale;
@@ -131,7 +131,7 @@ float GameSettings::addMenus(Point * loc) {
     auto menu = Menu::create(misMore, misRate, nullptr);
     menu->setPosition(Point::ZERO);
     this->addChild(menu, 1);
-    loc->y -= 60 * this->_xScale;
+    loc->y -= 72 * this->_xScale;
     return 0;
 }
 
