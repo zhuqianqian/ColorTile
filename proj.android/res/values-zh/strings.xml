@@ -6,6 +6,7 @@
     <string name="gamehelper_license_failed">许可证书检查失败。</string>
     <string name="gamehelper_unknown_error">未知错误。</string>
     <string name="send_to">Choose an app to share:</string>
+    <string name="play_service">你的设备中没有Google Play服务，要使用这个功能你需要安装并启用Google Play服务。</string>
     <string name="share_content">我在玩消除彩块得了%1$d分, 想挑战一下吗? 试试这个好玩的游戏吧： https://play.google.com/store/apps/details?id=com.z299studio.colortile</string>
 
     <string name="share_content1">我在玩消除采块，只用了%1$d次划动就只留下一种颜色。大家也来试试吧：https://play.google.com/store/apps/details?id=com.z299studio.colortile</string>

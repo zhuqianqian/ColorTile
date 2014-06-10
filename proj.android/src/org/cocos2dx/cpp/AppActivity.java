@@ -29,8 +29,10 @@ package org.cocos2dx.cpp;
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import com.google.android.gms.games.Games;
-
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.z299studio.colortile.BaseGameActivity;
+import android.content.DialogInterface;
 import com.z299studio.colortile.R;
 
 import android.content.Context;
@@ -39,6 +41,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
+import android.app.AlertDialog;
 
 public class AppActivity extends BaseGameActivity {
 	
@@ -91,7 +94,20 @@ public class AppActivity extends BaseGameActivity {
     public static void gameServicesSignIn() {
         ((AppActivity)mContext).runOnUiThread(new Runnable() {
             public void run() {
-               ((AppActivity)mContext).beginUserInitiatedSignIn();
+               int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(mContext);
+               if(ConnectionResult.SUCCESS !=  status) {
+                   new AlertDialog.Builder((AppActivity)mContext)
+				   .setMessage(R.string.play_service)
+                   .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		               public void onClick(DialogInterface dialog, int which) { 
+		        
+		               }
+		           })
+				   .show();
+               }
+               else {
+                   ((AppActivity)mContext).beginUserInitiatedSignIn();
+               }
            }
         });
     }
